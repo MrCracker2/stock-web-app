@@ -289,5 +289,8 @@ def send_email_alert(to_email, symbol, current_price, target_price):
         server.login("belikeapro123@gmail.com", "ecmi gfqp vumu nzwi")
         server.send_message(msg)
 
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5050)
+    port = int(os.environ.get('PORT', 5050))
+    app.run(host='0.0.0.0', port=port, debug=True)
