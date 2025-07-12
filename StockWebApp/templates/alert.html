@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Stock Alert</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        video#bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.4);
+        }
+
+        .container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 40px;
+            height: 100%;
+            box-sizing: border-box;
+            gap: 30px;
+        }
+
+        .chart-container {
+            flex: 2;
+            max-width: 60%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .form-container {
+            flex: 1;
+            max-width: 350px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00e6e6;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 15px;
+        }
+
+        input[readonly] {
+            background-color: #ccc;
+            color: #555;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #00e6e6;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00cccc;
+        }
+    </style>
+</head>
+<body>
+
+<video autoplay muted loop id="bgVideo">
+    <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+</video>
+
+<div class="container">
+    <div class="chart-container">
+        <h3>{{ symbol }} - Current Price: ₹{{ price }}</h3>
+        <div style="overflow-x: auto;">{{ chart_html | safe }}</div>
+    </div>
+
+    <div class="form-container">
+        <h2>Set Stock Alert</h2>
+        <form action="/set_alert" method="POST">
+            <label>Stock Symbol:</label>
+            <input type="text" name="symbol" value="{{ symbol }}" required>
+
+            <label>Target Price:</label>
+            <input type="number" name="target" step="0.01" required>
+
+            <input type="hidden" name="email" value="{{ user.email }}">
+
+            <button type="submit">Set Alert</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

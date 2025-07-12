@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Stock Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        video#bgVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.5);
+        }
+
+        .register-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            width: 380px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            text-align: center;
+        }
+
+        .register-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .register-box input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .register-box button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .register-box button:hover {
+            background-color: #1e7e34;
+        }
+
+        .register-box a {
+            display: block;
+            margin-top: 10px;
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+
+<video autoplay muted loop id="bgVideo">
+    <source src="{{ url_for('static', filename='background.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<div class="register-box">
+    <h2>Create Account</h2>
+    {% if error %}
+    <div style="background-color: rgba(255, 0, 0, 0.7); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        {{ error }}
+        <br><a href="{{ url_for('login') }}" style="color: yellow;">→ Go to Login</a>
+    </div>
+{% endif %}
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Full Name" required><br>
+        <input type="email" name="email" placeholder="Email Address" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button type="submit">Register</button>
+    </form>
+    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+</div>
+
+</body>
+</html>
