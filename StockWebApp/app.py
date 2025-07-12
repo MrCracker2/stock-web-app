@@ -260,6 +260,8 @@ def send_email_alert(to_email, symbol, current_price, target_price):
     msg = MIMEMultipart("alternative")
     msg['Subject'] = f"📈 {symbol} Alert: Target ₹{target_price} hit!"
     msg['From'] = "belikeapro123@gmail.com"
+    
+    
     msg['To'] = to_email
 
     html = f"""
